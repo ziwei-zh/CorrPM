@@ -10,10 +10,17 @@ The compile of InPlace-ABN is based on [CE2P](https://github.com/liutinglt/CE2P)
 ## Implementation
 ### Dataset
 Please download [LIP](http://sysu-hcp.net/lip/overview.php) dataset and make them follow this structure:
+```
 |-- LIP
-|-- |-- TrainVal_pose_annotations/LIP_SP_TRAIN_annotations.json
-`-- |-- images_labels
-        `-- |-- 
+    |-- TrainVal_pose_annotations/LIP_SP_TRAIN_annotations.json
+    |-- images_labels
+        |-- train_images
+        |-- train_segmentations
+        |-- val_images
+        |-- val_segmentations
+        |-- train_id.txt
+        |-- val_id.txt
+```
     
 
 Pose annotation file can be downloaded here [Google drive]().
