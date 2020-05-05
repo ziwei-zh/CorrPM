@@ -15,5 +15,5 @@ TO BE FINISHED
 ```bash
 ./run_eval.sh
 ```
-Our trained model can be downloaded from [Baidu drive](https://pan.baidu.com/s/1XEXfR7--9eqUIn_LnJTlYA) (password:uzty) or [Google drive]()
+Our trained model can be downloaded from [Baidu drive](https://pan.baidu.com/s/1XEXfR7--9eqUIn_LnJTlYA) (password:uzty) or [Google drive](https://drive.google.com/open?id=1skvx6qVjh31a0Bff6ad06I82jRTtO-1T).
 
