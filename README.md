@@ -1,5 +1,5 @@
 # CorrPM
-This is Pytorch implementation of our paper (**Correlating Edge, Pose with Parsing**)[https://arxiv.org/pdf/2005.01431.pdf] accepted by CVPR2020.
+This is Pytorch implementation of our paper (Correlating Edge, Pose with Parsing)[https://arxiv.org/pdf/2005.01431.pdf] accepted by CVPR2020.
 
 ## Dependencies
 Pytorch >= 0.4
