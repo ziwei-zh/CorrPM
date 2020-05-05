@@ -1,6 +1,6 @@
 # Correlating Edge, Pose with Parsing
 ## Introduction
-This is a Pytorch implementation of our paper [Correlating Edge, Pose with Parsing](https://arxiv.org/pdf/2005.01431.pdf) accepted by CVPR2020. We proposes a Correlation Parsing Machine (CorrPM) utilizing a Heterogeneous Non-Local (HNL) network to capture the correlations among features from human edge, pose and parsing.
+This is a Pytorch implementation of our paper [Correlating Edge, Pose with Parsing](https://arxiv.org/pdf/2005.01431.pdf) accepted by CVPR2020. We propose a Correlation Parsing Machine (CorrPM) utilizing a Heterogeneous Non-Local (HNL) network to capture the correlations among features from human edge, pose and parsing.
 
 ## Dependencies
 Pytorch == 0.4.1
