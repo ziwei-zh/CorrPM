@@ -28,7 +28,7 @@ Please download [LIP](http://sysu-hcp.net/lip/overview.php) dataset and make the
 Pose annotation file can be downloaded here [Google drive](https://drive.google.com/open?id=1qlTED6vDHevfl3sr9t8WLVNDEkPahfyK).
 
 ### Train
-Please download the pre-trained ResNet-101 from [Google drive]() or [Baidu drive](https://pan.baidu.com/s/1Lzjvqpafw9VUO45TcPvhBA) 
+Please download the pre-trained ResNet-101 from [Google drive](https://drive.google.com/open?id=1uTf0wNLS5y0l8jIy06Tewdg8XF0TMSOq) or [Baidu drive](https://pan.baidu.com/s/1Lzjvqpafw9VUO45TcPvhBA) 
 
 TO BE FINISHED
 
