@@ -4,7 +4,9 @@ This is a Pytorch implementation of our paper [Correlating Edge, Pose with Parsi
 
 ## Requirements
 Pytorch 0.4.1
+
 Python 3.6
+
 The compile of InPlace-ABN is based on [CE2P](https://github.com/liutinglt/CE2P)
 
 ## Implementation
@@ -23,9 +25,11 @@ Please download [LIP](http://sysu-hcp.net/lip/overview.php) dataset and make the
 ```
     
 
-Pose annotation file can be downloaded here [Google drive]().
+Pose annotation file can be downloaded here [Google drive](https://drive.google.com/open?id=1qlTED6vDHevfl3sr9t8WLVNDEkPahfyK).
+
 ### Train
 Please download the pre-trained ResNet-101 from [Google drive]() or [Baidu drive](https://pan.baidu.com/s/1Lzjvqpafw9VUO45TcPvhBA) (password: 75u8)
+
 TO BE FINISHED
 
 ### Test
