@@ -75,15 +75,7 @@ class LIPDataSet(data.Dataset):
         return center, scale
 
     def __getitem__(self, index):
-        # Load training image
-        # im_name = self.im_list[index]
-        if self.dataset == 'train' or self.dataset == 'val':
-            #  train_item = self.pose_anno_list[index]
-            #  im_name = train_item['im_name'].split('.')[0]
-            im_name = self.im_list[index]
-        else:
-            im_name = self.im_list[index]
-
+        im_name = self.im_list[index]
         im_path = os.path.join(self.root, self.dataset + '_images', im_name + '.jpg')
         parsing_anno_path = os.path.join(self.root, self.dataset + '_segmentations', im_name + '.png')
 
@@ -97,7 +89,6 @@ class LIPDataSet(data.Dataset):
             joints_loc = np.zeros((joints_all_info.shape[0], 2))
             joints_loc[:, :] = joints_all_info[:, 0:2] # 1st and 2nd column
 
-            # TODO:reorder joints?
 
             # get visibility of joints
             coord_sum = np.sum(joints_loc, axis=1)
@@ -135,8 +126,6 @@ class LIPDataSet(data.Dataset):
                     joints_loc = flip_joints(joints_loc, w)
 
                     # swap the visibility of left and right joints
-                    #r_joint = [1,2,3,11,12,13]
-                    #l_joint = [4,5,6,14,15,16]
                     r_joint = [0,1,2,10,11,12]
                     l_joint = [3,4,5,13,14,15]
                     for i in range(0,6):
@@ -145,7 +134,6 @@ class LIPDataSet(data.Dataset):
                         visibility[l_joint[i]] = temp_visibility
 
         trans = get_affine_transform(center, s, r, self.crop_size)
-        #  gt_trans = get_affine_transform(center, s, r, np.asarray([96, 96]))
 
         input = cv2.warpAffine(
             im,
@@ -154,7 +142,6 @@ class LIPDataSet(data.Dataset):
             flags=cv2.INTER_LINEAR,
             borderMode=cv2.BORDER_CONSTANT,
             borderValue=(0, 0, 0))
-        #  cv2.imwrite('/home/zzw/segment/train_images/' + im_name + '.jpg', input)
 
         if self.transform:
             input = self.transform(input)
@@ -180,29 +167,16 @@ class LIPDataSet(data.Dataset):
                 borderMode=cv2.BORDER_CONSTANT,
                 borderValue=(255))
 
-            #  cv2.imwrite('/home/zzw/segment/train_segmentations/' + meta['name'] + '.png', label_parsing)
-
-            '''
-            label_edge = generate_edge(label_parsing)
-            label_parsing = torch.from_numpy(label_parsing)
-            label_edge = torch.from_numpy(label_edge)
-            '''
             grid_x = int(self.crop_size[1] / self.pose_net_stride)
             grid_y = int(self.crop_size[0] / self.pose_net_stride)
-            #  grid_x = int(self.crop_size[1])
-            #  grid_y = int(self.crop_size[0])
 
             for i in range(joints_all_info.shape[0]):
                 if visibility[i] > 0:
                     joints_loc[i, 0:2] = self.affine_trans(joints_loc[i, 0:2], trans)
 
-
-            #  print("joints loc:", joints_loc)
             label_pose = generate_pose(joints_loc, visibility, trans, grid_x, grid_y, self.pose_net_stride, self.sigma)
             label_edge = generate_edge(label_parsing)
-            #  save_edge = cv2.resize(label_edge, (96,96))
-            #  cv2.imwrite('/home/zzw/segment/CE2P_0_4_1/lip_edge_gt/' + im_name + '.png', save_edge)
-#
+
             return input, label_parsing, label_pose, label_edge, meta
 
     def affine_trans(self, pt, t):
