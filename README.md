@@ -32,13 +32,16 @@ Please download [LIP](http://sysu-hcp.net/lip/overview.php) dataset and make the
 Pose annotation file can be downloaded here [Google drive](https://drive.google.com/open?id=1qlTED6vDHevfl3sr9t8WLVNDEkPahfyK).
 
 ### Train
-Please download the pre-trained ResNet-101 from [Google drive](https://drive.google.com/open?id=1uTf0wNLS5y0l8jIy06Tewdg8XF0TMSOq) or [Baidu drive](https://pan.baidu.com/s/1Lzjvqpafw9VUO45TcPvhBA) and put it in the ```./pth``` folder.
+The pre-trained ResNet-101 can be downloaded from [Google drive](https://drive.google.com/open?id=1uTf0wNLS5y0l8jIy06Tewdg8XF0TMSOq) or [Baidu drive](https://pan.baidu.com/s/1Lzjvqpafw9VUO45TcPvhBA).
 
-TO BE FINISHED
+```bash
+./run_train.sh
+```
+
 
 ### Test
+Please download our trained model from [Google drive](https://drive.google.com/open?id=1skvx6qVjh31a0Bff6ad06I82jRTtO-1T) or [Baidu drive](https://pan.baidu.com/s/1XEXfR7--9eqUIn_LnJTlYA) and put it in the ```./pth``` folder.
+
 ```bash
 ./run_eval.sh
 ```
-Our trained model can be downloaded from  [Google drive](https://drive.google.com/open?id=1skvx6qVjh31a0Bff6ad06I82jRTtO-1T) or [Baidu drive](https://pan.baidu.com/s/1XEXfR7--9eqUIn_LnJTlYA).
-
