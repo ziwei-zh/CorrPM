@@ -34,7 +34,7 @@ def get_arguments():
     Returns:
       A list of parsed arguments.
     """
-    parser = argparse.ArgumentParser(description="CE2P Network")
+    parser = argparse.ArgumentParser(description="CorrPM Network")
     parser.add_argument("--batch-size", type=int, default=1,
                         help="Number of images sent to the network in one step.")
     parser.add_argument("--data-dir", type=str, default=DATA_DIRECTORY,
@@ -64,7 +64,6 @@ def get_arguments():
 def valid(model, valloader, input_size, num_samples, gpus):
     model.eval()
     args = get_arguments()
-
     palette = get_lip_palette()
 
     parsing_preds = np.zeros((num_samples, input_size[0], input_size[1]),
@@ -81,9 +80,7 @@ def valid(model, valloader, input_size, num_samples, gpus):
     interp = torch.nn.Upsample(size=(input_size[0], input_size[1]), mode='bilinear', align_corners=True)
     with torch.no_grad():
         for index, batch in enumerate(valloader):
-            if args.data_name == 'cihp_old':
-                image, meta = batch['image'], batch['meta']
-            else:
+            if args.data_name == 'lip':
                 image, label, pose, edge, meta = batch
             num_images = image.size(0)
             if index % 100 == 0:
@@ -110,21 +107,12 @@ def valid(model, valloader, input_size, num_samples, gpus):
                         parsing = parsing[1]
 
                     nums = len(parsing)
-
                     parsing = interp(parsing)
                     parsing = parsing.permute(0, 2, 3, 1)
                     parsing_[idx:idx + nums, :, :] = parsing.max(3)[1]
 
                     idx += nums
                     i += nums
-
-                    '''Save images'''
-#                      seg_pred = np.asarray(np.argmax(parsing, axis=3), dtype=np.uint8)
-                    #  num = seg_pred.shape[0] #*gpus
-                    #  for i in range(num):
-                    #      output_im = PILImage.fromarray(seg_pred[i])
-                    #      output_im.putpalette(palette)
-                       #  output_im.save(args.save_dir + meta['name'][i] + '.png')
 
             else:
                 parsing = outputs[0][1]
