@@ -27,9 +27,9 @@ Please download [LIP](http://sysu-hcp.net/lip/overview.php) dataset and make the
         |-- train_id.txt
         |-- val_id.txt
 ```
-    
 
-Pose annotation file can be downloaded here [Google drive](https://drive.google.com/open?id=1qlTED6vDHevfl3sr9t8WLVNDEkPahfyK).
+
+Pose annotation file can be downloaded here [Google drive](https://drive.google.com/open?id=1IGehIsLPyPTY9CHWSkugMQvPYw60cBLT).
 
 ### Train and Test
 The pre-trained ResNet-101 can be downloaded from [Google drive](https://drive.google.com/open?id=1uTf0wNLS5y0l8jIy06Tewdg8XF0TMSOq) or [Baidu drive](https://pan.baidu.com/s/1Lzjvqpafw9VUO45TcPvhBA).
