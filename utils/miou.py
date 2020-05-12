@@ -2,7 +2,6 @@ import numpy as np
 import cv2
 import os
 import random
-from ipdb import set_trace
 
 import json
 from collections import OrderedDict

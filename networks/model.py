@@ -4,8 +4,7 @@ import torch.utils.model_zoo as model_zoo
 import torch
 from torch.autograd import Variable
 
-from networks.non_local import NONLocalBlock2D, NewNONLocalBlock2D
-from networks.Nonlocal_Net import Nonlocal_correlation
+from networks.non_local import NONLocalBlock2D
 from networks.simple_pose_net_deconv import get_pose_net
 
 from ipdb import set_trace

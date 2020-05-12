@@ -19,7 +19,6 @@ from torch.utils import data
 
 from networks.model import CorrPM_Model
 from dataset.pose_edge_datasets import LIPDataSet
-from dataset import custom_transforms as tr
 
 from utils.criterion import CriterionPoseEdge
 from utils.encoding import DataParallelModel, DataParallelCriterion

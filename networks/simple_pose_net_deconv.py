@@ -17,8 +17,6 @@ from collections import OrderedDict
 
 '''Configs for resnet'''
 FINAL_CONV_KERNEL=1
-#  NUM_DECONV_FILTERS=[256, 256, 256]
-#  NUM_DECONV_KERNELS=[4,4,4]
 '''upsample by 4'''
 NUM_DECONV_FILTERS=[256, 512]
 NUM_DECONV_KERNELS=[4,4]
@@ -164,15 +162,6 @@ class PoseResNet(nn.Module):
         self.deconv_with_bias = DECONV_WITH_BIAS
 
         super(PoseResNet, self).__init__()
-#          self.conv1 = nn.Conv2d(3, 64, kernel_size=7, stride=2, padding=3,
-        #                         bias=False)
-        #  self.bn1 = nn.BatchNorm2d(64, momentum=BN_MOMENTUM)
-        #  self.relu = nn.ReLU(inplace=True)
-        #  self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
-        #  self.layer1 = self._make_layer(block, 64, layers[0])
-        #  self.layer2 = self._make_layer(block, 128, layers[1], stride=2)
-        #  self.layer3 = self._make_layer(block, 256, layers[2], stride=2)
-        #  self.layer4 = self._make_layer(block, 512, layers[3], stride=2)
 #
         # used for deconv layers
         self.deconv_layers = self._make_deconv_layer(
@@ -224,7 +213,6 @@ class PoseResNet(nn.Module):
             'ERROR: num_deconv_layers is different len(num_deconv_filters)'
         assert num_layers == len(num_kernels), \
             'ERROR: num_deconv_layers is different len(num_deconv_filters)'
-
         # No backbone, else delete it
         self.inplanes = 2048
         layers = []
@@ -249,23 +237,12 @@ class PoseResNet(nn.Module):
         return nn.Sequential(*layers)
 
     def forward(self, x):
-#          x = self.conv1(x)
-        #  x = self.bn1(x)
-        #  x = self.relu(x)
-        #  x = self.maxpool(x)
-        #
-        #  x = self.layer1(x)
-        #  x = self.layer2(x)
-        #  x = self.layer3(x)
-        #  x = self.layer4(x)
-
         x_fea = self.deconv_layers(x)
         x = self.final_layer(x_fea)
 
         return x, x_fea
 
     def init_weights(self, pretrained='no_pretrain'):
-        # if os.path.isfile(pretrained):
         if pretrained == 'no_pretrain':
             logger.info('=> init deconv weights from normal distribution')
             for name, m in self.deconv_layers.named_modules():
@@ -283,35 +260,11 @@ class PoseResNet(nn.Module):
             logger.info('=> init final conv weights from normal distribution')
             for m in self.final_layer.modules():
                 if isinstance(m, nn.Conv2d):
-                    # nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
                     logger.info('=> init {}.weight as normal(0, 0.001)'.format(name))
                     logger.info('=> init {}.bias as 0'.format(name))
                     nn.init.normal_(m.weight, std=0.001)
                     nn.init.constant_(m.bias, 0)
 
-            # pretrained_state_dict = torch.load(pretrained)
-
-            '''loading pre-trained imagenet model'''
-#              logger.info('=> loading pretrained model {}'.format(pretrained))
-            #  # self.load_state_dict(pretrained_state_dict, strict=False)
-            #  checkpoint = torch.load(pretrained)
-            #  if isinstance(checkpoint, OrderedDict):
-            #      state_dict = checkpoint
-            #  elif isinstance(checkpoint, dict) and 'state_dict' in checkpoint:
-            #      state_dict_old = checkpoint['state_dict']
-            #      state_dict = OrderedDict()
-            #      # delete 'module.' because it is saved from DataParallel module
-            #      for key in state_dict_old.keys():
-            #          if key.startswith('module.'):
-            #              # state_dict[key[7:]] = state_dict[key]
-            #              # state_dict.pop(key)
-            #              state_dict[key[7:]] = state_dict_old[key]
-            #          else:
-            #              state_dict[key] = state_dict_old[key]
-            #  else:
-            #      raise RuntimeError(
-            #          'No state_dict found in checkpoint file {}'.format(pretrained))
-            #  self.load_state_dict(state_dict, strict=False)
         else:
             logger.error('=> imagenet pretrained model dose not exist')
             logger.error('=> please download it first')
@@ -337,7 +290,7 @@ def get_pose_net(npoints, is_train, **kwargs):
     model = PoseResNet(npoints, block_class, layers, **kwargs)
 
     if is_train:
-        model.init_weights() #args.restore_from_pose)
+        model.init_weights()
 
     return model
 

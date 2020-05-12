@@ -9,7 +9,6 @@ from torch.utils import data
 import torchvision.transforms as transforms
 from copy import deepcopy
 from PIL import Image as PILImage
-from ipdb import set_trace
 
 from networks.model import CorrPM_Model
 from dataset.pose_edge_datasets import LIPDataSet

@@ -1,4 +1,3 @@
-from ipdb import set_trace
 import os
 import sys
 import numpy as np
@@ -22,42 +21,8 @@ def swap_left_and_right(joints, r_joint = [0,1,2,10,11,12], l_joint = [3,4,5,13,
 
     return swapped_joints
 
-
-#  def generate_pose(joints, visibility, trans, grid_x, grid_y, stride, sigma):
-    #  # affine joints
-    #  joint_num = joints.shape[0] # 17 for lip
-    #  #print("joint_num:", joint_num)
-    #  one_array = np.ones((1, joint_num))
-    #  joints = joints.transpose()
-    #  joints_ = np.vstack((joints, one_array))
-    #  affine_joints = np.dot(trans, joints_)
-    #  joints = affine_joints.transpose()
-    #  #print("affine_joints shape:", joints.shape)
-    #
-    #  # get gaussian map
-    #  gaussian_maps = np.zeros((joint_num, grid_y, grid_x))
-    #  for ji in range(0, joint_num-1):
-    #      if visibility[ji]:
-    #          gaussian_map = gen_single_gaussian_map(joints[ji, :], stride, grid_x, grid_y, sigma)
-    #          gaussian_maps[ji, :, :] = gaussian_map[:, :]
-    #
-    #  # Get background heatmap
-    #  max_heatmap = gaussian_maps.max(0)
-    #
-    #  gaussian_maps[joint_num - 1, :, :] = 1 - max_heatmap
-    #
-    #  return gaussian_maps
-
-
 def generate_pose(joints, visibility, trans, grid_x, grid_y, stride, sigma):
-    #print("before trans", joints)
     joint_num = joints.shape[0] # 16 for lip
-    #  one_array = np.ones((1, joint_num))
-    #  joints = joints.transpose()
-    #  joints_ = np.vstack((joints, one_array))
-    #  affine_joints = np.dot(trans, joints_)
-    #  joints = affine_joints.transpose()
-
     tmp_size = sigma * 3
     # get gaussian ma,p
     gaussian_maps = np.zeros((joint_num, grid_y, grid_x))
@@ -91,36 +56,7 @@ def generate_pose(joints, visibility, trans, grid_x, grid_y, stride, sigma):
         if v > 0.5:
             gaussian_maps[joint_id][img_y[0]:img_y[1], img_x[0]:img_x[1]] = g[g_y[0]:g_y[1], g_x[0]:g_x[1]]
 
-    #  return gaussian_maps, target_weight
     return gaussian_maps
-
-
-def gen_single_gaussian_map(center, stride, grid_x, grid_y, sigma):
-    #print "Target generation -- Single gaussian maps"
-
-    gaussian_map = np.zeros((grid_y, grid_x))
-    start = stride / 2.0 - 0.5
-
-    max_dist = np.ceil(np.sqrt(4.6052 * sigma * sigma * 2.0))
-    start_x = int(max(0, np.floor((center[0] - max_dist - start) / stride)))
-    end_x = int(min(grid_x, np.ceil((center[0] + max_dist - start) / stride)))
-    start_y = int(max(0, np.floor((center[1] - max_dist - start) / stride)))
-    end_y = int(min(grid_y, np.ceil((center[1] + max_dist - start) / stride)))
-
-    #  for g_y in range(start_y, end_y):
-        #  for g_x in range(start_x, end_x):
-        #      x = start + g_x * stride
-        #      y = start + g_y * stride
-        #      d2 = (x - center[0]) * (x - center[0]) + (y - center[1]) * (y - center[1])
-        #      exponent = d2 / 2.0 / sigma / sigma
-        #      if exponent > 4.6052:
-        #          continue
-        #      gaussian_map[g_y, g_x] += np.exp(-exponent)
-        #      if gaussian_map[g_y, g_x] > 1:
-                #  gaussian_map[g_y, g_x] = 1
-
-    return gaussian_map
-
 
 def generate_edge(label, edge_width=3):
     h, w = label.shape
