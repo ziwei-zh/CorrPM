@@ -43,3 +43,13 @@ Please download our trained model from [Google drive](https://drive.google.com/o
 ```bash
 ./run_eval.sh
 ```
+
+## Citation
+If you use this code for your research, please cite our papers.
+@InProceedings{Zhang_2020_CVPR,
+author = {Zhang, Ziwei and Su, Chi and Zheng, Liang and Xie, Xiaodong},
+title = {Correlating Edge, Pose With Parsing},
+booktitle = {IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+month = {June},
+year = {2020}
+}
